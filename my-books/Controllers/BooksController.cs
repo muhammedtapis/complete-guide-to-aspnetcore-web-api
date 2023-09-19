@@ -24,6 +24,7 @@ namespace my_books.Controllers
         {
             _booksService.AddBook(book);
             return Ok();
+            int ad = 10;
         }
 
 
