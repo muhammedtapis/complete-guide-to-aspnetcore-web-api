@@ -9,7 +9,8 @@ namespace my_books.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        //startup.cs dosyasında service ekledikten sonra servisi buraya inject edebiliriz.
+        //startup.cs dosyasında service ekledikten sonra servisi buraya inject edebiliriz. !!!!!
+        //IActionResult tipinde çağırılan methodların hepsi BooksService içinde oluşturulur, Controller sınıfında çağırılır.
         public BooksService _booksService;
 
         public BooksController(BooksService booksService)
@@ -24,10 +25,10 @@ namespace my_books.Controllers
         {
             _booksService.AddBook(book);
             return Ok();
-            int ad = 10;
+            
         }
 
-
+        //HTTP GET veri alacağız.
         [HttpGet("get-all-books")]
 
         public IActionResult GetAllBooks()
@@ -37,13 +38,13 @@ namespace my_books.Controllers
             return Ok(allBooks);
         }
 
-        [HttpGet("get-book-by-id/{bookId}")] //method parametresindeki bookId nin httpget requestinden gelmesi lazım o
+        [HttpGet("get-book-by-id/{bookId}")] //method parametresindeki bookId nin httpget requestinden yani site arayüzünden gelmesi lazım o
                                              // o yüzden /{} ekleyip içine bookId yazdık.
         public IActionResult GetBookById(int bookId)
         {
             var book = _booksService.GetBookById(bookId); //allBooks parametresini _booksService sınıfındaki getallbooks methoduna atadık bu method liste dönüyor.
 
-            return Ok(book);
+            return Ok(book); //method sonucunda kitabı kullanıcıya gösterdiğimiz için return Ok içinde belirttik silme işleminde bu olmayacak.
         }
 
         [HttpPut("update-book-by-id/{bookId}")]

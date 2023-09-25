@@ -34,9 +34,9 @@ namespace my_books
 
             services.AddControllers();
             //confgure DB context with SQL
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString)); //appdbcontext servisi ekleyip içine yukarda oluþturduðumuz connection stringi verdik.
             //configure the services
-            services.AddTransient<BooksService>(); //booksservice kullanabilmek için burada ekleme yaptýk.
+            services.AddTransient<BooksService>(); //BooksService kullanabilmek için burada ekleme yaptýk.
 
             services.AddSwaggerGen(c =>
             {

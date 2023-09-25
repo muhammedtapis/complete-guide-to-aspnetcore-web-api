@@ -17,7 +17,7 @@ namespace my_books.Data
             {
                 var context = serviceScope.ServiceProvider.GetService<AppDbContext>(); //appdbcontexti burdaki contexte atıyoruz.
 
-                if (!context.Books.Any())  //eğer hiç kitap yoksa bu koduçalıştır.
+                if (!context.Books.Any())  //eğer hiç kitap yoksa bu kodu çalıştır.
                 { 
                     context.Books.AddRange(new Book()
                     {

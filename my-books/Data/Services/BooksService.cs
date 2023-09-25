@@ -10,7 +10,9 @@ namespace my_books.Data.Services
     public class BooksService
     {
         //sadece bir method kullanacağız database e books eklemek için.
-        //database e books eklemek için appdbcontext e referans alman gerekiyor.ÖNEMLİ!!
+        //database e books eklemek için appdbcontext e referans alman gerekiyor.ÖNEMLİ!! çünkü SQL ve c# arasındaki ilişkiyi o kuruyor.
+        //Servis sınıfında AppDbContext sınıfından gelen List(Books listesi) üzerinden işlem yapıyoruz ekleme çıkarma silme gösterme.
+        //Bu tarz methodların hepsi Servis methodunun içinde yazılır ve Controller sınıfından çağrılıp kullanılır.
         private AppDbContext _context;
         public BooksService(AppDbContext context)
         {
@@ -44,16 +46,17 @@ namespace my_books.Data.Services
      // aynı işi yapıyor aşağıdaki kodla   public List<Book> GetAllBooks() => _context.Books.ToList();
         public List <Book> GetAllBooks() {
         
-            return _context.Books.ToList();
+            return _context.Books.ToList(); //AppDbContext içinden gelen Books liste olarak döndürüldü.
 
         }
 
         public Book GetBookById(int bookId) {
 
             return _context.Books.FirstOrDefault(n => n.Id == bookId); //FirstOrDefault methodundaki n.id bookId parametresine eşitledik.
+            //firstorDEfault methodu entity frameworkten geliyor.
         }
 
-        public Book UpdateBookById(int bookId, BookVM book) { //BookVM olmasının sebebi sadece değişebeliceğimiz özellikleri
+        public Book UpdateBookById(int bookId, BookVM book) { //BookVM olmasının sebebi sadece kullanıcının değişebeliceği özellikleri
                                                                //değiştirmek istiyoruz id değiştiremeyiz mesela.             
              var _book = _context.Books.FirstOrDefault(n => n.Id == bookId); // id ye sahip olan kitap databasede var mı onu kontrol ettik.
 

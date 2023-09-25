@@ -2,7 +2,7 @@
 
 namespace my_books.Data.ViewModels
 {
-    //Bu viewmodeli sadece kullanıcıdan isteyeceğimiz bilgiler için kullanacağız o yüzden oluşturduk.
+    //Bu viewmodeli sadece kullanıcıdan isteyeceğimiz veya kullanıcını güncelleyeceği bilgiler için kullanacağız o yüzden oluşturduk.
     //Bookservice sınıfında kullanacağız.
     public class BookVM
     {
