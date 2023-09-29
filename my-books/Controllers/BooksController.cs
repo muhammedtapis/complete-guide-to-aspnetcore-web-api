@@ -20,10 +20,10 @@ namespace my_books.Controllers
 
         //ilk endpointi oluşturacağız 
         //HTTP POST API endpoint olacak çünkü database veri gönderiyoruz.
-        [HttpPost("add-book")]
+        [HttpPost("add-book-with-authors")]
         public IActionResult AddBook([FromBody] BookVM book)
         {
-            _booksService.AddBook(book);
+            _booksService.AddBookWithAuthors(book);
             return Ok();
             
         }

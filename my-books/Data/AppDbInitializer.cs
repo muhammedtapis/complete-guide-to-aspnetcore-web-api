@@ -27,7 +27,6 @@ namespace my_books.Data
                         DateRead = DateTime.Now.AddDays(-10), // 10 gün önce.
                         Rate = 4,
                         Genre = "Biography",
-                        Author = "1st Author",
                         CoverUrl = "https....",
                         DateAdded = DateTime.Now
 
@@ -38,7 +37,6 @@ namespace my_books.Data
                         Description = "1st Book Description",
                         IsRead = false,
                         Genre = "Biography",
-                        Author = "1st Author",
                         CoverUrl = "https....",
                         DateAdded = DateTime.Now
 
@@ -47,6 +45,9 @@ namespace my_books.Data
                     );
 
                     context.SaveChanges();
+
+                    // burda hata verdi iptal ediyoruz startup.cs dosyasında bu methodu çağırmıyoruz.
+                    // Çünkü update etmemize gerek yok verilerin hepsini SWAGGER kullanarak yani kullanıcıdan alacağız.
                 }
             }
         }

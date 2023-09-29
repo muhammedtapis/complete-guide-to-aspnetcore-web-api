@@ -6,7 +6,8 @@
 
         //Navigation Properties
 
-        public int BookId { get; set; }
+        //Book ve Author arasındaki join model olduğu için iki modelin de Id si ve modeli getirildi.
+        public int BookId { get; set; }  
         public Book Book { get; set; }
 
 

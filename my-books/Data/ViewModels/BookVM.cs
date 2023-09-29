@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace my_books.Data.ViewModels
 {
@@ -18,8 +19,13 @@ namespace my_books.Data.ViewModels
 
         public string Genre { get; set; }
 
-        public string Author { get; set; }
-
         public string CoverUrl { get; set; }
+
+
+        //Publisher, Author modelleri eklendikten sonraki yapılan güncelleme.!!!!!
+
+        public int PublisherId { get; set; }  //Book sadece bir publishera sahip olabilir o yüzden sadece Publisher Id
+
+        public List<int>  AuthorIds { get; set; }  // Book birden fazl authora sahip olabilir , bu sebeple author Id lerini listede tutuyoruz.
     }
 }

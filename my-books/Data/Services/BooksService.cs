@@ -20,7 +20,7 @@ namespace my_books.Data.Services
                 
         }
 
-        public void AddBook(BookVM book)
+        public void AddBookWithAuthors(BookVM book)
         {
             var _book = new Book()
             {
@@ -30,14 +30,30 @@ namespace my_books.Data.Services
                 DateRead = book.IsRead ? book.DateRead.Value : null,//book zaten okunmuş mu onu kontrol ettik önce eğer okunmamışsa null olcak.
                 Rate = book.IsRead ? book.Rate : null, //aynı şekilde puanlama yapabilmek için okunmuş olması gerek, eğer okunnmamışsa 0 verilcek.
                 Genre = book.Genre,
-                Author = book.Author,
                 CoverUrl = book.CoverUrl,
-                DateAdded = DateTime.Now
-
-
+                DateAdded = DateTime.Now,  
+                PublisherId = book.PublisherId,   //sol taraftakiler modelden geliyo sağdakiler view modelden SWAGGER dan.
+      
             };
             _context.Books.Add(_book);//oluşturulan _book instance Books içine ekle.
             _context.SaveChanges(); //değişiklikleri kaydet.
+
+            //database book eklendikten sonra BookAuthors tablosunda Book ve BookAuthors arasındaki ilişkiyi oluşturmamız gerekiyor.
+
+            foreach (var id in book.AuthorIds)
+            {
+                //Bookauthor oluştur.
+
+                var _book_author = new Book_Author()
+                {
+                    BookId = _book.Id, //burdaki _book.id kitap eklendikten sonra oluşan id.!!!!
+                    AuthorId = id, //sağdaki author id ViewModelden geliyor. sanırım Authorları listeleyip seçince onun idsini alıyor.
+
+                };
+                _context.Books_Authors.Add(_book_author);
+                _context.SaveChanges();
+            }
+
         }
 
         //bu servisi kullanabilmek için startup.cs dosyasında konfigüre etmemiz gerek.
@@ -68,7 +84,6 @@ namespace my_books.Data.Services
                 _book.DateRead = book.IsRead ? book.DateRead.Value : null;//book zaten okunmuş mu onu kontrol ettik önce eğer okunmamışsa null olcak.
                 _book.Rate = book.IsRead ? book.Rate : null; //aynı şekilde puanlama yapabilmek için okunmuş olması gerek, eğer okunnmamışsa 0 verilcek.
                 _book.Genre = book.Genre;
-                _book.Author = book.Author;
                 _book.CoverUrl = book.CoverUrl;
 
                 _context.SaveChanges();

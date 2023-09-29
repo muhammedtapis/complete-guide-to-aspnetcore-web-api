@@ -23,7 +23,7 @@ namespace my_books
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString"); //apsettings.json dosyasýndaki "defaultconnectionstring"
+            ConnectionString = Configuration.GetConnectionString("DefaultConnectionString"); //appsettings.json dosyasýndaki "defaultconnectionstring"
         }
 
         public IConfiguration Configuration { get; }
@@ -33,10 +33,16 @@ namespace my_books
         {
 
             services.AddControllers();
+
             //confgure DB context with SQL
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(ConnectionString)); //appdbcontext servisi ekleyip içine yukarda oluþturduðumuz connection stringi verdik.
+         
             //configure the services
+
             services.AddTransient<BooksService>(); //BooksService kullanabilmek için burada ekleme yaptýk.
+            services.AddTransient<AuthorsService>(); //AuthorsService kullanabilmek için burada ekleme yaptýk.
+            services.AddTransient<PublishersService>();  //PublishersService kullanabilmek için burada ekleme yaptýk.
+
 
             services.AddSwaggerGen(c =>
             {
@@ -65,7 +71,10 @@ namespace my_books
                 endpoints.MapControllers();
             });
 
-            AppDbInitializer.Seed(app);
+            //AppDbInitializer den seed methodunu çaðýrmýþtýk daha önce hiç verimiz yoksa bu veri ekliyordu bunu iptal edicez.
+            //Bunu Book servisi dýþýnda diðer Servis ve Controlleri oluþturduktan sonra iptal ettik çünkü AppDbInitializer de context.savechanges(); methodu hata verdi.
+           
+            //AppDbInitializer.Seed(app);
         }
     }
 }
